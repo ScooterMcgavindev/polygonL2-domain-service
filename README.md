@@ -1,15 +1,8 @@
-# Basic Sample Hardhat Project
+# Polygon L2 domain service
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+Steps to implement domain on chain with an NFT
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+- Use a contract from OpenZeppelin to easily mint ERC721 tokens
+- Create SVGs for our NFT and use on chain storage
+- Setup token metadata (the data the NFT will hold)
+- Mint it!
