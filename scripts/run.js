@@ -1,5 +1,5 @@
 const main = async () => {
-  // grab wallet address of contract owner along with a random wallet
+  // The first return is the deployer, the second is a random account
   const [owner, randomPerson] = await hre.ethers.getSigners();
   const domainContractFactory = await hre.ethers.getContractFactory('Domains');
   const domainContract = await domainContractFactory.deploy();
@@ -13,6 +13,13 @@ const main = async () => {
   // call get address function to return the owner of domain
   const domainOwner = await domainContract.getAddress('scoots');
   console.log('Owner of domain:', domainOwner);
+
+  // simulate other people hitting functions by trying to set a record that doesn't belong to me
+  // should give error when running script if require statements work properly
+  txn = await domainContract
+    .connect(randomPerson)
+    .setRecord('scoots', 'my domain');
+  await txn.wait();
 };
 
 const runMain = async () => {
