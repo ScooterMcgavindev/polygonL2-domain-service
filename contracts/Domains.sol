@@ -23,8 +23,10 @@ contract Domains is ERC721URIStorage {
 
     mapping(string => address) public domains; // map domain string to wallet address to store domain names
     mapping(string => string) public records; // map to store records
+    address payable public owner;
 
     constructor(string memory _tld) payable ERC721("Scooter Name Service", "SNS") {
+        owner = payable(msg.sender);
         tld = _tld;
         console.log("%s name service deployed", _tld);
     }
@@ -103,4 +105,24 @@ contract Domains is ERC721URIStorage {
     function getRecord(string calldata name) public view returns(string memory) {
         return records[name];
     }
+
+    // Allows to change behavior of functions, similar to require statements
+    // requires that the owner returns true, or is the one trying to withdraw
+    modifier onlyOwner() {
+        require(isOwner());
+        _;
+    }
+
+    function isOwner() public view returns (bool) {
+        return msg.sender == owner;
+    }
+
+    // fetches the balance of the contract and sends it to the requester, which must be the owner
+    function withdraw() public onlyOwner {
+        uint amount = address(this).balance;
+
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, 'Failed to withdraw Matic');
+    }
+
 }
