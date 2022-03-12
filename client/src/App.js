@@ -11,11 +11,12 @@ const tld = '.scooter';
 const CONTRACT_ADDRESS = '0x343670BF183c30cFF7C793bBe84a73201ed22CD5';
 
 const App = () => {
-  // state to store users public wallet, data properties, and network
+  // state to store users public wallet, data properties, network, and edit mode
   const [currentAccount, setCurrentAccount] = useState('');
   const [domain, setDomain] = useState('');
   const [record, setRecord] = useState('');
   const [network, setNetwork] = useState('');
+  const [editing, setEditing] = useState(false);
 
   // Connect Users wallet to metamask
   const connectWallet = async () => {
@@ -173,6 +174,38 @@ const App = () => {
     }
   };
 
+  // update records
+  const updateDomain = async () => {
+    if (!record || !domain) {
+      return;
+    }
+    setLoading(true);
+    console.log('Updating Domain', domain, 'with record', record);
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          contractAbi.abi,
+          signer
+        );
+
+        let tx = await contract.setRecord(domain, record);
+        await tx.wait();
+        console.log('Record set https://mumbai.polygonscan.com/tx/' + tx.hash);
+
+        fetchMints();
+        setRecord('');
+        setDomain('');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
   // function to render if wallet is not connected  yet
   const renderNotConnectedContainer = () => (
     <div className='connect-wallet-container'>
@@ -189,7 +222,11 @@ const App = () => {
     </div>
   );
 
-  // Form to enter domain name and data to store
+  /** Form to enter domain name and data to store
+   * Renders two different buttons if the app is in edit mode,
+   * Set Record Btn calls update function,
+   * Cancel button takes us out of editing mode
+   */
   const renderInputForm = () => {
     // connect to polygon mumbai testnet if not on it already
     if (network !== 'Polygon Mumbai Testnet') {
@@ -223,23 +260,36 @@ const App = () => {
           placeholder='domain records'
           onChange={e => setRecord(e.target.value)}
         />
-
-        <div className='button-container'>
+        {/* If the editing variable is true, return the "Set record" and "Cancel" button */}
+        {editing ? (
+          <div className='button-container'>
+            {/* call the updateDomain function */}
+            <button
+              className='cta-button mint-button'
+              disabled={loading}
+              onClick={updateDomain}
+            >
+              Set Record
+            </button>
+            {/* This will let us get out of editing mode by setting editing to false */}
+            <button
+              className='cta-button mint-button'
+              onClick={() => {
+                setEditing(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
           <button
             className='cta-button mint-button'
-            // disabled={null}
+            disabled={loading}
             onClick={mintDomain}
           >
             Mint
           </button>
-          <button
-            className='cta-button mint-button'
-            disabled={null}
-            onClick={null}
-          >
-            Set Data
-          </button>
-        </div>
+        )}
       </div>
     );
   };
