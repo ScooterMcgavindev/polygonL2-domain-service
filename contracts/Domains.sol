@@ -24,6 +24,12 @@ contract Domains is ERC721URIStorage {
     mapping(string => address) public domains; // map domain string to wallet address to store domain names
     mapping(string => string) public records; // map to store records
     address payable public owner;
+    mapping (uint => string) public names;  // map to store minted Ids with domain names
+
+    // custom errors
+    error Unauthorized();
+    error AlreadyRegistered();
+    error InvalidName(string name);
 
     constructor(string memory _tld) payable ERC721("Scooter Name Service", "SNS") {
         owner = payable(msg.sender);
@@ -46,6 +52,9 @@ contract Domains is ERC721URIStorage {
     //Tado: add function people can hit and register domain name with a place to store names
     // register names to add to mapping, msg.sender's address is that who called the func
     function register(string calldata name) public payable{
+        // using custom error msgs
+        if (domains[name] != address(0)) revert AlreadyRegistered();
+        if (!valid(name)) revert InvalidName(name);
         // checks address of domain to register is same as the zero address.
         require(domains[name] == address(0));
         uint256 _price = price(name);
@@ -87,7 +96,7 @@ contract Domains is ERC721URIStorage {
         _safeMint(msg.sender, newRecordId); // mint NFT to newRecordId
         _setTokenURI(newRecordId, finalTokenUri);   /// set NFT data in case JSON case with domain info
         domains[name] = msg.sender;
-
+        names[newRecordId] = name;
         _tokenIds.increment();        
     }
     // returns domain ownders address
@@ -99,7 +108,7 @@ contract Domains is ERC721URIStorage {
     // set record
     function setRecord(string calldata name, string calldata record) public {
         // checks owner is the tx sender 
-        require(domains[name] == msg.sender);
+        if (msg.sender != domains[name]) revert Unauthorized();
         records[name] = record;
     }
     function getRecord(string calldata name) public view returns(string memory) {
@@ -123,6 +132,21 @@ contract Domains is ERC721URIStorage {
 
         (bool success, ) = msg.sender.call{value: amount}("");
         require(success, 'Failed to withdraw Matic');
+    }
+    
+    function getAllNames() public view returns (string[] memory) {
+        console.log('Get names from contract');
+        string[] memory allNames = new string[](_tokenIds.current());
+        for(uint i = 0; i < _tokenIds.current(); i++) {
+            allNames[i] = names[i];
+            console.log('Name for token %d is %s', i, allNames[i]);
+        }
+        return allNames;
+    }
+
+    // check if domain name is between 3-10 characters 
+    function valid(string calldata name) public pure returns(bool) {
+        return StringUtils.strlen(name) >= 3 && StringUtils.strlen(name) <= 10;
     }
 
 }

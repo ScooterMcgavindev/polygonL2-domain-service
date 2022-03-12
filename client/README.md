@@ -19,7 +19,8 @@
 - [&check;] Get Abi file from artifact dir
 - [&check;] Mint Domain Name
 - [&check;] Tests
-- [ ] Modify Function to allow for withdraw
+- [&check;] Modify Function to allow for withdraw
+- [ ] Retrieve all domains minted on contract, now update to frontend
 
 ## Domain Minted and Records set visable on polygonscan
 
