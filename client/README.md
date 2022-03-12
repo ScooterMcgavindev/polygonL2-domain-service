@@ -23,11 +23,12 @@
 - [&check;] Improve UX of the app
 - [&check;] Display user wallet
 - [&check;] Use MetaMask API to swap and add networks
-- [ ] include the Update domain records functionality in the client side.
-- [ ] Fetch mint records to render:
-  1. All domain names from the contract [ ]
-  2. the record for each domain name it got [ ]
-  3. the owners address for each domain name [ ]
+- [&check;] include the Update domain records functionality in the client side.
+- [&check;] Fetch mint records to render:
+  1. All domain names from the contract [&check;]
+  2. the record for each domain name it got [&check;]
+  3. the owners address for each domain name [&check;]
+- [ ] Render Minted Domains
 
 ## Domain Minted and Records set visable on polygonscan
 

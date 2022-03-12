@@ -11,12 +11,13 @@ const tld = '.scooter';
 const CONTRACT_ADDRESS = '0x343670BF183c30cFF7C793bBe84a73201ed22CD5';
 
 const App = () => {
-  // state to store users public wallet, data properties, network, and edit mode
+  // state to store users public wallet, data properties, network, minter, and edit mode
   const [currentAccount, setCurrentAccount] = useState('');
   const [domain, setDomain] = useState('');
   const [record, setRecord] = useState('');
   const [network, setNetwork] = useState('');
   const [editing, setEditing] = useState(false);
+  const [mints, setMints] = useState([]);
 
   // Connect Users wallet to metamask
   const connectWallet = async () => {
@@ -115,7 +116,10 @@ const App = () => {
     }
   };
 
-  // calling register function from smart contract to mint domain as an NFT
+  /** calling register function from smart contract to mint domain as an NFT
+   * add setTimeout function to wait two seconds to make sure the transaction is mined,
+   * so the app updates when a domain is minted so users can view their mint in real-time
+   */
   const mintDomain = async () => {
     // Don't run if the domain is empty
     if (!domain) {
@@ -162,6 +166,11 @@ const App = () => {
           console.log(
             'Record set! https://mumbai.polygonscan.com/tx/' + tx.hash
           );
+
+          // call fetchMints after 2 seconds
+          setTimeout(() => {
+            fetchMints();
+          }, 2000);
 
           setRecord('');
           setDomain('');
@@ -221,6 +230,58 @@ const App = () => {
       </button>
     </div>
   );
+
+  /** Fetch Mint fetches 3 items and places in an array and sets the array as mints:
+   * 1. All the domain names from the contract
+   * 2. The record for each domain name it got
+   * 3. The owner’s address for each domain name it got
+   */
+  const fetchMints = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        // You know all this
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          contractAbi.abi,
+          signer
+        );
+
+        // Get all the domain names from our contract
+        const names = await contract.getAllNames();
+
+        // For each name, get the record and the address
+        const mintRecords = await Promise.all(
+          names.map(async name => {
+            const mintRecord = await contract.records(name);
+            const owner = await contract.domains(name);
+            return {
+              id: names.indexOf(name),
+              name: name,
+              record: mintRecord,
+              owner: owner
+            };
+          })
+        );
+
+        console.log('MINTS FETCHED ', mintRecords);
+        setMints(mintRecords);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /**
+   * 2nd UseEffect which runs anytime the currentAccount or network are changed
+   */
+  useEffect(() => {
+    if (network === 'Polygon Mumbai Testnet') {
+      fetchMints();
+    }
+  }, [currentAccount, network]);
 
   /** Form to enter domain name and data to store
    * Renders two different buttons if the app is in edit mode,
