@@ -5,7 +5,7 @@ import contractAbi from './utils/contractABI.json';
 
 // CONSTANTS
 const tld = '.scooter';
-const CONTRACT_ADDRESS = 0x17225579db82d4d6ea560641e877c576c1141594;
+const CONTRACT_ADDRESS = '0x17225579db82d4d6ea560641e877c576c1141594';
 
 const App = () => {
   // state to store users public wallet and data properties
@@ -145,7 +145,7 @@ const App = () => {
         <input
           type='text'
           value={record}
-          placeholder='scooterMcgavin'
+          placeholder='domain records'
           onChange={e => setRecord(e.target.value)}
         />
 
