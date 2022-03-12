@@ -20,9 +20,9 @@
 - [&check;] Tests
 - [&check;] Modify Function to allow for withdraw
 - [&check;] Retrieve all domains minted on contract and update the frontend
-- [ ] Improve UX of the app
+- [&check;] Improve UX of the app
 - [&check;] Display user wallet
-- [ ] Use MetaMask API to swap and add networks
+- [&check;] Use MetaMask API to swap and add networks
 - [ ] include the Update domain records functionality in the client side.
 - [ ] Fetch mint records to render:
   1. All domain names from the contract [ ]

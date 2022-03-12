@@ -69,6 +69,51 @@ const App = () => {
     }
   };
 
+  /** Use MetaMask Api to swap and add correct networks
+   * attempts to change network with wallet_switchEthereumChain rpc method
+   */
+  const switchNetwork = async () => {
+    if (window.ethereum) {
+      try {
+        // attempt to switch to mumabi testnet
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x13881' }] // checks network.js for hex network id
+        });
+      } catch (error) {
+        // error code means the chain has not been added to metamask, ask user to add it
+        if (error.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0x13881',
+                  chainName: 'Polygon Mumbai Testnet',
+                  rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
+                  nativeCurrency: {
+                    name: 'Mumbai Matic',
+                    Symbol: 'MATIC',
+                    decimals: 18
+                  },
+                  blockExplorerUrls: ['https://mumbai.polygonscan.com/']
+                }
+              ]
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        console.log(error);
+      }
+    } else {
+      // If window.ethereum is not found then MetaMask is not installed
+      alert(
+        'MetaMask is not installed. Please install it to use this app: https://metamask.io/download.html'
+      );
+    }
+  };
+
   // calling register function from smart contract to mint domain as an NFT
   const mintDomain = async () => {
     // Don't run if the domain is empty
@@ -146,6 +191,21 @@ const App = () => {
 
   // Form to enter domain name and data to store
   const renderInputForm = () => {
+    // connect to polygon mumbai testnet if not on it already
+    if (network !== 'Polygon Mumbai Testnet') {
+      //alert('Please Connect to the Polygon Mumbai Testnet');
+      return (
+        <div className='connect-wallet-container'>
+          <h2 className='swapNetwork'>
+            Please Connect to the Polygon Mumbai Testnet
+          </h2>
+          {/* This button will call our switch network function */}
+          <button className='cta-button mint-button' onClick={switchNetwork}>
+            Click Here to swap networks
+          </button>
+        </div>
+      );
+    }
     return (
       <div className='form-container'>
         <div className='first-row'>
