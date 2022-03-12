@@ -82,3 +82,70 @@ p {
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
 }
+
+.mint-button {
+  background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
+  font-size: 18px;
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
+  margin: 20px 10px;
+  border-radius: 20px;
+  padding: 0px 2rem;
+}
+
+.mint-button:disabled {
+  background: #550072;
+  color: rgb(209, 209, 209);
+  cursor: not-allowed;
+}
+
+.form-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.first-row {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+input {
+  border: 0;
+  border-radius: 12px;
+  background-color: black;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 26px;
+  width: 400px;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+input::placeholder {
+  color: gray;
+  letter-spacing: 2px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.tld {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  /* left: -70px; */
+  right: 22px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 13px;
+}

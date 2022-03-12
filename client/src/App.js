@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
 import './styles/App.css';
 
+// CONSTANTS
+const tld = '.scooter';
+const CONTRACT_ADDRESS = 0x17225579db82d4d6ea560641e877c576c1141594;
+
 const App = () => {
-  // state to store users public wallet
+  // state to store users public wallet and data properties
   const [currentAccount, setCurrentAccount] = useState('');
-  /**
-   * implements connect wallet method
-   */
+  const [domain, setDomain] = useState('');
+  const [record, setRecord] = useState('');
+
+  // Connect Users wallet to metamask
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
@@ -18,13 +24,14 @@ const App = () => {
       const accounts = await ethereum.request({
         method: 'eth_requestAccounts'
       });
-      // print pub address
+      // print public address and set account
       console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error);
     }
   };
+
   // check wallet connection made async to await for authorization
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -61,9 +68,52 @@ const App = () => {
       </button>
     </div>
   );
+
+  // Form to enter domain name and data to store
+  const renderInputForm = () => {
+    return (
+      <div className='form-container'>
+        <div className='first-row'>
+          <input
+            type='text'
+            value={domain}
+            placeholder='domain'
+            onChange={e => setDomain(e.target.value)}
+          />
+          <p className='tld'>{tld}</p>
+        </div>
+        <input
+          type='text'
+          value={record}
+          placeholder='scooterMcgavin'
+          onChange={e => setRecord(e.target.value)}
+        />
+
+        <div className='button-container'>
+          <button
+            className='cta-button mint-button'
+            disabled={null}
+            onClick={null}
+          >
+            Mint
+          </button>
+          <button
+            className='cta-button mint-button'
+            disabled={null}
+            onClick={null}
+          >
+            Set Data
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Run on Render
   useEffect(() => {
     checkIfWalletIsConnected();
   }, []);
+
   return (
     <div className='App'>
       <div className='container'>
@@ -77,6 +127,8 @@ const App = () => {
         </div>
         {/* Hide the connect button if currentAccount isn't empty*/}
         {!currentAccount && renderNotConnectedContainer()}
+        {/* Render the input form if an account is connected */}
+        {currentAccount && renderInputForm()}
       </div>
     </div>
   );
