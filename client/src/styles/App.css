@@ -149,3 +149,19 @@ input:focus {
   padding: 0;
   margin-bottom: 13px;
 }
+
+.right {
+  display: flex;
+  background: black;
+  border-radius: 16px;
+  padding: 12px 20px;
+  height: 99%;
+  margin-right: 10%;
+  margin-top: 10px;
+}
+
+.logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}

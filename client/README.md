@@ -15,12 +15,19 @@
 - [&check;] Access Users account
 - [&check;] Connect to users metamask wallet,
 - [&check;] Get data from the user, domain name and data to store
-- [&check;] Interact with the smart contract
-- [&check;] Get Abi file from artifact dir
+- [&check;] Interact with the smart contract using Abi file
 - [&check;] Mint Domain Name
 - [&check;] Tests
 - [&check;] Modify Function to allow for withdraw
-- [ ] Retrieve all domains minted on contract, now update to frontend
+- [&check;] Retrieve all domains minted on contract and update the frontend
+- [ ] Improve UX of the app
+- [&check;] Display user wallet
+- [ ] Use MetaMask API to swap and add networks
+- [ ] include the Update domain records functionality in the client side.
+- [ ] Fetch mint records to render:
+  1. All domain names from the contract [ ]
+  2. the record for each domain name it got [ ]
+  3. the owners address for each domain name [ ]
 
 ## Domain Minted and Records set visable on polygonscan
 

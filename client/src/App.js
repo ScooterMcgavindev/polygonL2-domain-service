@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './styles/App.css';
 import contractAbi from './utils/contractABI.json';
+import polygonLogo from './assets/polygonlogo.png';
+import ethLogo from './assets/ethlogo.png';
+import { networks } from './utils/networks';
 
 // CONSTANTS
 const tld = '.scooter';
 const CONTRACT_ADDRESS = '0x343670BF183c30cFF7C793bBe84a73201ed22CD5';
 
 const App = () => {
-  // state to store users public wallet and data properties
+  // state to store users public wallet, data properties, and network
   const [currentAccount, setCurrentAccount] = useState('');
   const [domain, setDomain] = useState('');
   const [record, setRecord] = useState('');
+  const [network, setNetwork] = useState('');
 
   // Connect Users wallet to metamask
   const connectWallet = async () => {
@@ -51,6 +55,17 @@ const App = () => {
       setCurrentAccount(account);
     } else {
       console.log('No authorized account found');
+    }
+
+    // check users network chain ID
+    const chainId = await ethereum.request({ method: 'eth_chainId' });
+    setNetwork(networks[chainId]);
+
+    ethereum.on('chainChanged', handleChainChanged);
+
+    // reload page on network change
+    function handleChainChanged(_chainId) {
+      window.location.reload();
     }
   };
 
@@ -182,6 +197,22 @@ const App = () => {
             <div className='left'>
               <p className='title'>🛴 Scooter Name Service</p>
               <p className='subtitle'>Your immortal API on the blockchain!</p>
+            </div>
+            <div className='right'>
+              <img
+                alt='Network logo'
+                className='logo'
+                src={network.includes('Polygon') ? polygonLogo : ethLogo}
+              />
+              {currentAccount ? (
+                <p>
+                  {' '}
+                  Wallet: {currentAccount.slice(0, 6)}...
+                  {currentAccount.slice(-4)}{' '}
+                </p>
+              ) : (
+                <p> Not connected </p>
+              )}
             </div>
           </header>
         </div>
