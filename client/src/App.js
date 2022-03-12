@@ -5,7 +5,7 @@ import contractAbi from './utils/contractABI.json';
 
 // CONSTANTS
 const tld = '.scooter';
-const CONTRACT_ADDRESS = '0x17225579db82d4d6ea560641e877c576c1141594';
+const CONTRACT_ADDRESS = '0x343670BF183c30cFF7C793bBe84a73201ed22CD5';
 
 const App = () => {
   // state to store users public wallet and data properties

@@ -29,7 +29,7 @@
 
 ## Contract Address
 
-[0x17225579DB82d4D6EA560641E877C576c1141594](https://mumbai.polygonscan.com/address/0x17225579DB82d4D6EA560641E877C576c1141594)
+[0x343670BF183c30cFF7C793bBe84a73201ed22CD5](https://mumbai.polygonscan.com/address/0x343670BF183c30cFF7C793bBe84a73201ed22CD5)
 
 ## NFT Displayed on Opensea
 
