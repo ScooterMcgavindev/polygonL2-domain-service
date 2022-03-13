@@ -1,4 +1,10 @@
-# Polygon L2 domain service
+## Polygon L2 domain service
+
+`Links`
+
+[Deployment](https://polygon-l2-domain-service.vercel.app/) • [Contract Address](https://mumbai.polygonscan.com/address/0x343670BF183c30cFF7C793bBe84a73201ed22CD5) • [NFT on Opensea](https://testnets.opensea.io/collection/scooter-name-service) • [Domain Name Minted](https://mumbai.polygonscan.com/tx/0xc4ed71997342fe996aaebf824cb9bd8bfb6919f40f6f6c2a11d6d6acf0418946) • [Records Set](https://mumbai.polygonscan.com/tx/0x1b20149f843cae22095c2c2dbc2570b128b5212bbd7f64fde9041c73b7a084b4)
+
+---
 
 - Requires to be on Polygon Network: to add to metamask:
 - Network Name: Mumbai Testnet
@@ -8,20 +14,6 @@
 - Block Explorer URL: https://polygonscan.com/
 
 - Get Testnet funds here [MATIC-faucet](https://faucet.polygon.technology/)
-
-<hr />
-
-## Contract Address
-
-- [0x343670BF183c30cFF7C793bBe84a73201ed22CD5](https://mumbai.polygonscan.com/address/0x343670BF183c30cFF7C793bBe84a73201ed22CD5)
-
-## NFT Displayed on Opensea
-
-- [Opensea](https://testnets.opensea.io/collection/scooter-name-service)
-
-## Deployment
-
-- [Deployment](https://polygon-l2-domain-service.vercel.app/)
 
 <hr />
 
