@@ -1,5 +1,14 @@
 # Polygon L2 domain service
 
+- Requires to be on Polygon Network: to add to metamask:
+  Network Name: Mumbai Testnet
+  New RPC URL: https://rpc-mumbai.maticvigil.com
+  Chain ID: 80001
+  Currency Symbol: MATIC
+  Block Explorer URL: https://polygonscan.com/
+
+- [MATIC-faucet](https://faucet.polygon.technology/)
+
 ## Getting started
 
 ##### Follow the steps below to run the project locally:
