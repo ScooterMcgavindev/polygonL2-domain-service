@@ -28,7 +28,8 @@
   1. All domain names from the contract [&check;]
   2. the record for each domain name it got [&check;]
   3. the owners address for each domain name [&check;]
-- [ ] Render Minted Domains
+- [&check;] Render Minted Domains
+- [&cross;] edit - fixed
 
 ## Domain Minted and Records set visable on polygonscan
 
