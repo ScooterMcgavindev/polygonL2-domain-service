@@ -1,13 +1,29 @@
 # Polygon L2 domain service
 
 - Requires to be on Polygon Network: to add to metamask:
-  Network Name: Mumbai Testnet
-  New RPC URL: https://rpc-mumbai.maticvigil.com
-  Chain ID: 80001
-  Currency Symbol: MATIC
-  Block Explorer URL: https://polygonscan.com/
+- Network Name: Mumbai Testnet
+- New RPC URL: https://rpc-mumbai.maticvigil.com
+- Chain ID: 80001
+- Currency Symbol: MATIC
+- Block Explorer URL: https://polygonscan.com/
 
-- [MATIC-faucet](https://faucet.polygon.technology/)
+- Get Testnet funds here [MATIC-faucet](https://faucet.polygon.technology/)
+
+<hr />
+
+## Contract Address
+
+- [0x343670BF183c30cFF7C793bBe84a73201ed22CD5](https://mumbai.polygonscan.com/address/0x343670BF183c30cFF7C793bBe84a73201ed22CD5)
+
+## NFT Displayed on Opensea
+
+- [Opensea](https://testnets.opensea.io/collection/scooter-name-service)
+
+## Deployment
+
+- [Deployment](https://polygon-l2-domain-service.vercel.app/)
+
+<hr />
 
 ## Getting started
 
@@ -35,18 +51,6 @@
 - Create SVGs for our NFT and use on chain storage
 - Setup token metadata (the data the NFT will hold)
 - Mint it!
-
-## Contract Address
-
-[0x343670BF183c30cFF7C793bBe84a73201ed22CD5](https://mumbai.polygonscan.com/address/0x343670BF183c30cFF7C793bBe84a73201ed22CD5)
-
-## NFT Displayed on Opensea
-
-[Opensea](https://testnets.opensea.io/collection/scooter-name-service)
-
-## Deployment
-
-[Deployment](https://polygon-l2-domain-service.vercel.app/)
 
 <p align='right'>
 <a href="https://github.com/ScooterMcgavin21/polygonL2-domain-service/tree/main/client"> Head To The Client Side</a>  
